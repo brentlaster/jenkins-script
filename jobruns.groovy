@@ -7,8 +7,8 @@ starttime=new GregorianCalendar();
 endtime=new GregorianCalendar();
 buildEnd=new GregorianCalendar();
 
-starttime.setTime(df.parse("2012-7-10 10:10:10"));
-endtime.setTime(df.parse("2012-12-30 11:10:10"));
+starttime.setTime(df.parse("2015-7-10 10:10:10"));
+endtime.setTime(df.parse("2015-12-30 11:10:10"));
 
 
 for (hudson.model.AbstractProject p : hudson.model.Hudson.instance.projects) {
