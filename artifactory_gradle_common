@@ -1,0 +1,21 @@
+#!groovy
+		
+//  Common artifactory-related pipeline code
+		
+// Define our repository for deploying and resolving
+   artifactoryGradle.deployer repo:'libs-snapshot-local', server: server
+   artifactoryGradle.resolver repo:'remote-repos', server: server
+           
+   // buildInfo and artifact configuration
+   def buildInfo = Artifactory.newBuildInfo()
+   
+   // Deploy Maven descriptors to Artifactory:
+   artifactoryGradle.deployer.deployMavenDescriptors = true
+   // extra gradle configurations		artifactoryGradle.deployer.artifactDeploymentPatterns.addExclude("*.jar")
+   artifactoryGradle.usesPlugin = false // Artifactory plugin already defined in build script
+		
+   // run the Gradle piece to deploy
+   artifactoryGradle.run rootDir: "/", buildFile: 'build.gradle', tasks: 'clean artifactoryPublish', buildInfo: buildInfo
+   // publish build info
+   server.publishBuildInfo buildInfo          
+    
